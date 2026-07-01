@@ -24,6 +24,9 @@ User intent?
 ├─ How does X work? / onboard                 → explore-codebase-playbook
 ├─ Library API / "how do I use Next…"         → library-integration-playbook
 ├─ Build agent / multi-agent / context        → agent-design-playbook
+├─ AI chatbot / LLM / RAG / AI SDK            → ai-llm-app-playbook
+├─ Expo / React Native / mobile app           → mobile-expo-playbook
+├─ Marketing / SEO / landing copy / ads       → marketing-seo-playbook
 ├─ New UI / page / component / redesign       → frontend-feature-playbook
 └─ Animate / motion / scroll / transitions    → frontend-motion-playbook
 ```
@@ -60,5 +63,8 @@ Treat as **frontend** when the work touches: `.tsx`, `.jsx`, `.vue`, `.svelte`, 
 | `explore-codebase-playbook` | how does, architecture, where is |
 | `library-integration-playbook` | library docs, API, configure SDK |
 | `agent-design-playbook` | agent system, harness, eval |
+| `ai-llm-app-playbook` | chatbot, LLM, AI SDK, RAG, streaming |
+| `mobile-expo-playbook` | Expo, React Native, iOS, Android |
+| `marketing-seo-playbook` | SEO, copy, ads, ASO, growth |
 | `frontend-feature-playbook` | build UI, landing, component |
 | `frontend-motion-playbook` | animate, Framer, motion, scroll |

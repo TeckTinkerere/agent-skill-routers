@@ -42,5 +42,8 @@ When multiple playbooks could apply, use the **most specific** match:
 13. `refactor-playbook` — structure without behavior change
 14. `e2e-qa-playbook` — browser QA and smoke tests
 15. `security-review-playbook` — security pass
+16. `mobile-expo-playbook` — Expo / React Native
+17. `marketing-seo-playbook` — SEO, copy, growth
+18. `ai-llm-app-playbook` — Vercel AI SDK apps
 
 When unsure, read `playbook-router/SKILL.md` first.

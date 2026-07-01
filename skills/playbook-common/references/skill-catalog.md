@@ -148,6 +148,52 @@ npx skills add microsoft/playwright-cli@playwright-cli currents-dev/playwright-b
 | `semgrep` | `trailofbits/skills` | 5.6K+ | security-review |
 | `firebase-security-rules-auditor` | `firebase/agent-skills` | 59K+ | security-review |
 
+## Mobile — Expo & React Native
+
+| Skill | Source | Installs | Playbooks |
+|-------|--------|----------|-----------|
+| `building-native-ui` | `expo/skills` | 57K+ | mobile-expo |
+| `vercel-react-native-skills` | `vercel-labs/agent-skills` | 155K+ | mobile-expo |
+| `native-data-fetching` | `expo/skills` | 45K+ | mobile-expo |
+| `expo-tailwind-setup` | `expo/skills` | 40K+ | mobile-expo |
+| `expo-deployment` | `expo/skills` | 39K+ | mobile-expo, deploy |
+| `react-native-best-practices` | `callstackincubator/agent-skills` | 19K+ | mobile-expo |
+| `react-native-design` | `wshobson/agents` | 11K+ | mobile-expo |
+
+```bash
+npx skills add expo/skills -g --skill building-native-ui --skill native-data-fetching --skill expo-deployment -y --copy
+npx skills add vercel-labs/agent-skills@vercel-react-native-skills callstackincubator/agent-skills@react-native-best-practices -g -y --copy
+```
+
+## Marketing & SEO
+
+| Skill | Source | Installs | Playbooks |
+|-------|--------|----------|-----------|
+| `seo-audit` | `coreyhaines31/marketingskills` | 150K+ | marketing-seo |
+| `copywriting` | `coreyhaines31/marketingskills` | 140K+ | marketing-seo |
+| `marketing-psychology` | `coreyhaines31/marketingskills` | 103K+ | marketing-seo |
+| `programmatic-seo` | `coreyhaines31/marketingskills` | 95K+ | marketing-seo |
+| `ai-seo` | `coreyhaines31/marketingskills` | 82K+ | marketing-seo |
+| `aso` | `coreyhaines31/marketingskills` | — | marketing-seo, mobile-expo |
+| `ad-creative` | `coreyhaines31/marketingskills` | — | marketing-seo |
+| `analytics` | `coreyhaines31/marketingskills` | — | marketing-seo |
+
+```bash
+npx skills add coreyhaines31/marketingskills -g --all -y --copy
+```
+
+## AI / LLM applications
+
+| Skill | Source | Installs | Playbooks |
+|-------|--------|----------|-----------|
+| `ai-sdk` | `vercel/ai` | 37K+ | ai-llm-app |
+| `migrate-ai-sdk-v6-to-v7` | `vercel/ai` | — | ai-llm-app |
+| `chat-sdk` | `vercel/chat` | 4K+ | ai-llm-app (chat UI) |
+
+```bash
+npx skills add vercel/ai -g --all -y --copy
+```
+
 ## Agent architecture
 
 | Skill | Source | Playbooks |
@@ -179,3 +225,6 @@ npx skills add muratcankoylan/Agent-Skills-for-Context-Engineering -g --all --fu
 | `security-review-playbook` | semgrep, firebase-security-rules-auditor |
 | `frontend-feature-playbook` | frontend-design, web-design-guidelines, shadcn |
 | `frontend-motion-playbook` | framer-motion-animator, review-animations |
+| `mobile-expo-playbook` | building-native-ui, vercel-react-native-skills |
+| `marketing-seo-playbook` | seo-audit, copywriting, ai-seo |
+| `ai-llm-app-playbook` | ai-sdk, find-docs, agent-design |
