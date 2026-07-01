@@ -24,6 +24,7 @@
   <a href="#slash-menu">Slash menu</a> ·
   <a href="#stacks">Stacks</a> ·
   <a href="#all-playbooks">All playbooks</a> ·
+  <a href="skills/playbook-common/references/skill-catalog.md">Skill catalog</a> ·
   <a href="skills/playbook-common/references/video-skills-leaderboard.md">Video leaderboard</a> ·
   <a href="docs/architecture.md">Architecture</a>
 </p>
