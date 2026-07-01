@@ -43,6 +43,10 @@ You installed dozens of skills. The agent picks the wrong one, reads whole files
 > Routers route. They do not replace child skills.
 
 ```bash
+# Interactive — checkbox picker (recommended)
+npx skills add TeckTinkerere/ROUTR -g --copy
+
+# Install all 22 playbooks — no prompts
 npx skills add TeckTinkerere/ROUTR -g --all -y --copy
 ```
 

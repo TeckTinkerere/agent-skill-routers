@@ -22,13 +22,43 @@ node -v
 
 ## Install playbooks (all platforms)
 
+### Recommended — pick playbooks with checkboxes
+
+**Do not** pass `-y` or `--all` if you want to choose what to install. The [skills CLI](https://skills.sh) shows an **interactive multi-select** for playbooks (and agents).
+
 ### Windows — PowerShell
+
+```powershell
+npx skills add TeckTinkerere/ROUTR -g --copy
+```
+
+### macOS / Linux — Bash or Zsh
+
+```bash
+npx skills add TeckTinkerere/ROUTR -g --copy
+```
+
+Use **Space** to toggle playbooks, **Enter** to confirm. On Windows, use **copy** mode (not symlinks) to avoid permission issues.
+
+Optional: ROUTR bundle picker (groups playbooks — then installs your selection):
+
+```powershell
+# Windows — grid checkboxes for Core / Video / Mobile / etc.
+.\scripts\install-routr.ps1
+```
+
+```bash
+# macOS / Linux — numbered bundle menu, then installs
+./scripts/install-routr.sh
+```
+
+### Install everything (no prompts)
+
+For scripts, CI, or when you want all 22 playbooks at once:
 
 ```powershell
 npx skills add TeckTinkerere/ROUTR -g --all -y --copy
 ```
-
-### macOS / Linux — Bash or Zsh
 
 ```bash
 npx skills add TeckTinkerere/ROUTR -g --all -y --copy
@@ -37,11 +67,22 @@ npx skills add TeckTinkerere/ROUTR -g --all -y --copy
 | Flag | Meaning |
 |------|---------|
 | `-g` / `--global` | Install for your user (all projects) |
-| `--all` | Install every playbook in this repo |
-| `-y` | No confirmation prompts |
+| *(none)* | **Interactive** — checkbox picker for skills + agents |
+| `--all` | Skip picker — install every playbook |
+| `-y` | Skip confirmation prompts (pairs with `--all` for one-shot) |
 | `--copy` | Copy files (recommended on Windows; avoids symlink issues) |
+| `--skill <name>` | Install specific playbooks only (no picker) |
 
 **Restart your agent app** after install so the slash menu refreshes.
+
+### Preset bundles (one command, no picker)
+
+| Bundle | Command |
+|--------|---------|
+| **Core** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill playbook-router --skill debugging-playbook --skill fix-and-ship-playbook --skill planning-playbook --skill explore-codebase-playbook` |
+| **Video** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill video-generation-playbook --skill video-launch-playbook --skill video-remotion-playbook` |
+| **Frontend** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill frontend-feature-playbook --skill frontend-motion-playbook` |
+| **Stacks** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill mobile-expo-playbook --skill marketing-seo-playbook --skill ai-llm-app-playbook` |
 
 ---
 
@@ -171,6 +212,8 @@ Edit `description` → reinstall or push to GitHub → `npx skills update` to re
 | Problem | Fix |
 |---------|-----|
 | Skill not in `/` menu | Restart agent; run install with `-g --copy` |
+| No checkbox picker appeared | Remove `-y` and `--all` — those skip the interactive UI |
+| Installed 20 not 22 playbooks | Run `npx skills update TeckTinkerere/ROUTR -g` or reinstall from latest `master` |
 | Old hover text | `npx skills update <skill-name> -g` |
 | `npx` not found | Install Node.js 18+; reopen terminal |
 | Windows symlink errors | Always use `--copy` |
