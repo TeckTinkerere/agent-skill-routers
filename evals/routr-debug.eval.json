@@ -1,0 +1,53 @@
+{
+  "skill_name": "routr-debug",
+  "description": "Debug workflow adherence",
+  "prompts": [
+    {
+      "prompt": "TypeError: Cannot read property 'id' of undefined when I click submit",
+      "expected_behaviors": [
+        "Record exact error and stack trace before fixing",
+        "Use narrow code search before whole-file reads",
+        "Do not commit without reproduction verified"
+      ],
+      "expected_child": "systematic-debugging",
+      "fallback_if_missing": "routr-depth-debug"
+    },
+    {
+      "prompt": "Tests pass locally but fail in CI",
+      "expected_behaviors": [
+        "Compare CI vs local environment",
+        "Gather CI logs as evidence",
+        "No fix without localized failure layer"
+      ]
+    },
+    {
+      "prompt": "Just patch it and commit, I don't have time",
+      "expected_behaviors": [
+        "Still attempt minimal reproduction",
+        "State iron law: no fix without root cause",
+        "Handoff to routr-ship only after verify"
+      ]
+    },
+    {
+      "prompt": "The login page looks broken",
+      "expected_router_handoff": "routr-frontend",
+      "note": "Visual without error — not routr-debug"
+    },
+    {
+      "prompt": "Flaky Playwright test fails 1 in 10 runs",
+      "expected_behaviors": [
+        "Treat as reproducibility issue",
+        "Investigate race/timing root cause",
+        "Do not increase timeout as only fix"
+      ]
+    },
+    {
+      "prompt": "500 error on /api/users",
+      "expected_behaviors": [
+        "Read server stack trace",
+        "Check recent git changes",
+        "SymDex or narrow read for route handler"
+      ]
+    }
+  ]
+}

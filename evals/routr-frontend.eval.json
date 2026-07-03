@@ -1,0 +1,49 @@
+{
+  "skill_name": "routr-frontend",
+  "description": "Frontend design workflow adherence",
+  "prompts": [
+    {
+      "prompt": "Build a landing page for a developer tools API",
+      "expected_behaviors": [
+        "Write design plan before code",
+        "Self-critique against generic AI template",
+        "Load frontend-design or routr-depth-frontend"
+      ],
+      "expected_child": "frontend-design",
+      "fallback_if_missing": "routr-depth-frontend"
+    },
+    {
+      "prompt": "Add a settings page matching our existing app",
+      "expected_behaviors": [
+        "Discover existing components via symdex/lean-ctx",
+        "Match design system before inventing new tokens"
+      ]
+    },
+    {
+      "prompt": "Make the hero animation more exciting",
+      "expected_router_handoff": "routr-motion",
+      "note": "Motion-only — not routr-frontend primary"
+    },
+    {
+      "prompt": "Redesign the dashboard — make it look good",
+      "expected_behaviors": [
+        "Design brief with subject, audience, job",
+        "4-6 named colors with roles",
+        "One signature element"
+      ]
+    },
+    {
+      "prompt": "Quick shadcn form for contact us",
+      "expected_behaviors": [
+        "Check if shadcn in project",
+        "find-docs for current shadcn API",
+        "a11y: focus and labels"
+      ]
+    },
+    {
+      "prompt": "Build Expo settings screen",
+      "expected_router_handoff": "routr-mobile",
+      "note": "Mobile — not routr-frontend"
+    }
+  ]
+}

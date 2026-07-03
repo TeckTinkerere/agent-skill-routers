@@ -8,13 +8,13 @@
 </pre>
 
 <p align="center">
-  <strong>Situational playbooks for AI coding agents</strong><br />
-  <sub>Repo: <a href="https://github.com/TeckTinkerere/ROUTR"><code>ROUTR</code></a> · Brand: <strong>ROUTR</strong> · by <a href="https://github.com/TeckTinkerere">TeckTinkerere</a></sub></p>
+  <strong>Situational routers for AI coding agents</strong><br />
+  <sub>Repo: <a href="https://github.com/TeckTinkerere/ROUTR"><code>ROUTR</code></a> · v2 · by <a href="https://github.com/TeckTinkerere">TeckTinkerere</a></sub></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/playbooks-22-blue?style=flat-square" alt="22 playbooks" />
+  <img src="https://img.shields.io/badge/routers-25-blue?style=flat-square" alt="25 skills" />
   <img src="https://img.shields.io/badge/agents-70%2B-green?style=flat-square" alt="70+ agents" />
-  <img src="https://img.shields.io/badge/skills.sh-routed-orange?style=flat-square" alt="skills.sh" />
+  <img src="https://img.shields.io/badge/v2-routr--prefix-orange?style=flat-square" alt="routr-*" />
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="MIT" />
 </p>
 
@@ -22,9 +22,9 @@
   <a href="INSTALL.md"><b>Install</b></a> ·
   <a href="#slash-menu">Slash menu</a> ·
   <a href="#stacks">Stacks</a> ·
-  <a href="#all-playbooks">All playbooks</a> ·
-  <a href="skills/playbook-common/references/skill-catalog.md">Skill catalog</a> ·
-  <a href="skills/playbook-common/references/video-skills-leaderboard.md">Video leaderboard</a> ·
+  <a href="#all-routers">All routers</a> ·
+  <a href="skills/routr-catalog/references/skill-registry.md">Skill registry</a> ·
+  <a href="docs/naming.md">Naming</a> ·
   <a href="docs/architecture.md">Architecture</a>
 </p>
 
@@ -34,162 +34,141 @@
 
 You installed dozens of skills. The agent picks the wrong one, reads whole files, and burns context.
 
-**ROUTR** is a set of thin **router playbooks**. Each playbook:
+**ROUTR v2** is standardized **`routr-*` router skills**. Each router:
 
 1. Matches a **situation** (debug, ship, mobile, SEO, AI SDK…)
-2. Tells the agent **which famous child skills to read** — in order
-3. Says what to **skip**
+2. Orders **child skills** to read — canonical names from the registry
+3. **Skips** irrelevant skills
+4. **Falls back** to `routr-depth-*` when children are missing
 
-> Routers route. They do not replace child skills.
+> Routers route. Install **child bundles** for Anthropic-grade depth — see [skill registry](skills/routr-catalog/references/skill-registry.md).
 
 ```bash
-# Interactive — checkbox picker (recommended)
+# Interactive — checkbox picker
 npx skills add TeckTinkerere/ROUTR -g --copy
 
-# Install all 22 playbooks — no prompts
+# All routr-* routers
 npx skills add TeckTinkerere/ROUTR -g --all -y --copy
+
+# Child depth (required for best results)
+# See routr-bundle-core / routr-bundle-frontend in skill-registry.md
 ```
 
-Full install: **[INSTALL.md](INSTALL.md)** (Windows · macOS · Linux · Cursor · Claude · Codex · Kiro · OpenCode)
+**v2 breaking rename:** `*-playbook` → `routr-*`. Old names redirect. [docs/naming.md](docs/naming.md)
+
+Full install: **[INSTALL.md](INSTALL.md)**
 
 ---
 
 ## Slash menu
 
-Hover text in `/` skill picker = YAML `description` in each `SKILL.md`. We keep them short:
+Hover text = YAML `description` in each `SKILL.md`:
 
-> **What it does.** `Use when:` triggers.
-
-| Playbook | Hover |
-|----------|-------|
-| `playbook-router` | Pick workflow when task is unclear |
-| `mobile-expo-playbook` | Build Expo / React Native apps |
-| `marketing-seo-playbook` | Marketing copy, SEO, growth |
-| `ai-llm-app-playbook` | AI SDK chat, agents, RAG, streaming |
-| `video-generation-playbook` | Make a video — route launch vs Remotion |
-| `video-launch-playbook` | /brag, launch promo, PR video |
-| `video-remotion-playbook` | Remotion React programmatic video |
-| `debugging-playbook` | Find and fix bugs step by step |
-| `frontend-feature-playbook` | Build or redesign UI |
-| … | [Full table in INSTALL.md](INSTALL.md) |
+| Router | Hover |
+|--------|-------|
+| `routr-router` | Pick workflow when unclear |
+| `routr-debug` | Find and fix bugs step by step |
+| `routr-ship` | Fix, verify, commit or PR |
+| `routr-frontend` | Build or redesign UI |
+| `routr-motion` | Animate existing UI |
+| `routr-plan` | Plan, PRD, grill ideas |
+| `routr-video` | Video — launch, Remotion, HyperFrames |
+| `routr-ai` | AI SDK chat, agents, RAG |
+| `routr-mobile` | Expo / React Native |
+| `routr-marketing` | SEO, copy, growth |
+| … | [Full list in INSTALL.md](INSTALL.md) |
 
 ---
 
 ## Stacks
 
-Three playbook groups — each routes to top [skills.sh](https://skills.sh) skills in that domain.
-
 ### Mobile · Expo / React Native
 
-| Playbook | Child skills (installs) |
-|----------|-------------------------|
-| [`mobile-expo-playbook`](skills/mobile-expo-playbook/) | `building-native-ui` (57K+), `vercel-react-native-skills` (155K+), `native-data-fetching`, `expo-deployment` |
+| Router | Child skills |
+|--------|--------------|
+| [`routr-mobile`](skills/routr-mobile/) | `building-native-ui`, `vercel-react-native-skills`, `native-data-fetching` |
 
-```bash
-npx skills add expo/skills -g --skill building-native-ui --skill native-data-fetching --skill expo-deployment -y --copy
-npx skills add vercel-labs/agent-skills@vercel-react-native-skills -g -y --copy
-```
-
-**Say:** *"Build an Expo tab screen with native feel"* → `mobile-expo-playbook`
-
----
+**Say:** *"Build an Expo tab screen"* → `routr-mobile`
 
 ### Marketing & SEO
 
-| Playbook | Child skills (installs) |
-|----------|-------------------------|
-| [`marketing-seo-playbook`](skills/marketing-seo-playbook/) | `seo-audit` (150K+), `copywriting` (140K+), `ai-seo` (82K+), `programmatic-seo`, `aso` |
+| Router | Child skills |
+|--------|--------------|
+| [`routr-marketing`](skills/routr-marketing/) | `seo-audit`, `copywriting`, `ai-seo`, `aso` |
 
-```bash
-npx skills add coreyhaines31/marketingskills -g --all -y --copy
-```
-
-**Say:** *"Audit SEO and rewrite landing copy"* → `marketing-seo-playbook` → then `frontend-feature-playbook` to build the page
-
----
+**Say:** *"Audit SEO and rewrite landing copy"* → `routr-marketing` → `routr-frontend`
 
 ### AI / LLM apps
 
-| Playbook | Child skills (installs) |
-|----------|-------------------------|
-| [`ai-llm-app-playbook`](skills/ai-llm-app-playbook/) | `ai-sdk` (37K+), `migrate-ai-sdk-v6-to-v7`, `find-docs` |
+| Router | Child skills |
+|--------|--------------|
+| [`routr-ai`](skills/routr-ai/) | `ai-sdk`, `find-docs` |
 
-```bash
-npx skills add vercel/ai -g --all -y --copy
-```
+Multi-agent architecture → `routr-agents`
 
-**Say:** *"Add streaming chat with tool calling"* → `ai-llm-app-playbook` + `frontend-feature-playbook` for UI
+### Video · brag, HyperFrames, Remotion
 
-For multi-agent architecture (not just AI SDK wiring) → `agent-design-playbook`
+| Router | Child skills |
+|--------|--------------|
+| [`routr-video`](skills/routr-video/) | `brag`, `remotion-best-practices`, `hyperframes` |
 
----
+Single entry — `references/launch.md` and `references/remotion.md` for sub-paths.
 
-### Video generation · brag, HyperFrames, Remotion
-
-| Playbook | Child skills (leaderboard) |
-|----------|---------------------------|
-| [`video-generation-playbook`](skills/video-generation-playbook/) | Routes launch vs Remotion vs HyperFrames |
-| [`video-launch-playbook`](skills/video-launch-playbook/) | **`brag`** (#1 launch), `product-launch-video`, `pr-to-video` |
-| [`video-remotion-playbook`](skills/video-remotion-playbook/) | `remotion-best-practices` (**401K+**) |
-
-Full ranking: [`video-skills-leaderboard.md`](skills/playbook-common/references/video-skills-leaderboard.md)
-
-```bash
-npx skills add latent-spaces/brag@brag remotion-dev/skills@remotion-best-practices -g -y --copy
-npx skills add heygen-com/hyperframes -g --all -y --copy
-```
-
-**Say:** *"/brag about this project"* → `video-launch-playbook` → `brag`  
-**Say:** *"Spotify Wrapped-style video from JSON"* → `video-remotion-playbook` → `remotion-best-practices`
+**Say:** *"/brag about this project"* → `routr-video` → `brag`
 
 ---
 
-## All playbooks
+## All routers
 
 <details>
-<summary><b>Core engineering (11)</b></summary>
+<summary><b>Core engineering (13)</b></summary>
 
-| Playbook | Triggers | Top skills |
-|----------|----------|------------|
-| [`planning-playbook`](skills/planning-playbook/) | plan, PRD, grill | `brainstorming`, `grill-me`, `to-prd` |
-| [`debugging-playbook`](skills/debugging-playbook/) | debug, error | `systematic-debugging`, SymDex, lean-ctx |
-| [`fix-and-ship-playbook`](skills/fix-and-ship-playbook/) | fix, commit, PR | TDD, `caveman-commit` |
-| [`testing-playbook`](skills/testing-playbook/) | tests, Playwright | `webapp-testing`, `tdd` |
-| [`code-review-playbook`](skills/code-review-playbook/) | review PR | `requesting-code-review` |
-| [`refactor-playbook`](skills/refactor-playbook/) | refactor | `improve-codebase-architecture` |
-| [`deploy-playbook`](skills/deploy-playbook/) | deploy, Vercel | `deploy-to-vercel` |
-| [`database-playbook`](skills/database-playbook/) | SQL, Supabase | `supabase-postgres-best-practices` |
-| [`e2e-qa-playbook`](skills/e2e-qa-playbook/) | browser QA | `agent-browser` (499K+) |
-| [`security-review-playbook`](skills/security-review-playbook/) | security audit | `semgrep` |
-| [`explore-codebase-playbook`](skills/explore-codebase-playbook/) | how does X work | SymDex → lean-ctx |
+| Router | Triggers | Top children |
+|--------|----------|--------------|
+| [`routr-plan`](skills/routr-plan/) | plan, PRD, grill | `brainstorming`, `grill-me`, `to-prd` |
+| [`routr-debug`](skills/routr-debug/) | debug, error | `systematic-debugging`, symdex, lean-ctx |
+| [`routr-ship`](skills/routr-ship/) | fix, commit, PR | TDD, `caveman-commit` |
+| [`routr-test`](skills/routr-test/) | tests, Playwright | `webapp-testing`, `tdd` |
+| [`routr-review`](skills/routr-review/) | review PR | `requesting-code-review` |
+| [`routr-refactor`](skills/routr-refactor/) | refactor | `improve-codebase-architecture` |
+| [`routr-deploy`](skills/routr-deploy/) | deploy, Vercel | `deploy-to-vercel` |
+| [`routr-database`](skills/routr-database/) | SQL, Supabase | `supabase-postgres-best-practices` |
+| [`routr-qa`](skills/routr-qa/) | browser QA | `agent-browser` |
+| [`routr-security`](skills/routr-security/) | security audit | `semgrep` |
+| [`routr-explore`](skills/routr-explore/) | how does X work | symdex → lean-ctx |
+| [`routr-integrate`](skills/routr-integrate/) | library API | `find-docs` |
+| [`routr-agents`](skills/routr-agents/) | agent systems | context-engineering bundle |
 
 </details>
 
 <details>
-<summary><b>Product surfaces (8)</b></summary>
+<summary><b>Product surfaces (6)</b></summary>
 
-| Playbook | Triggers | Top skills |
-|----------|----------|------------|
-| [`frontend-feature-playbook`](skills/frontend-feature-playbook/) | build UI | `frontend-design`, `web-design-guidelines` |
-| [`frontend-motion-playbook`](skills/frontend-motion-playbook/) | animate | `framer-motion-animator` |
-| [`mobile-expo-playbook`](skills/mobile-expo-playbook/) | Expo, RN | `building-native-ui` |
-| [`marketing-seo-playbook`](skills/marketing-seo-playbook/) | SEO, copy | `seo-audit`, `copywriting` |
-| [`ai-llm-app-playbook`](skills/ai-llm-app-playbook/) | chatbot, AI SDK | `ai-sdk` |
-| [`video-generation-playbook`](skills/video-generation-playbook/) | make a video | `hyperframes`, `brag` |
-| [`video-launch-playbook`](skills/video-launch-playbook/) | /brag, launch | **`brag`**, `pr-to-video` |
-| [`video-remotion-playbook`](skills/video-remotion-playbook/) | Remotion | `remotion-best-practices` |
+| Router | Triggers | Top children |
+|--------|----------|--------------|
+| [`routr-frontend`](skills/routr-frontend/) | build UI | `frontend-design` |
+| [`routr-motion`](skills/routr-motion/) | animate | `framer-motion-animator` |
+| [`routr-mobile`](skills/routr-mobile/) | Expo, RN | `building-native-ui` |
+| [`routr-marketing`](skills/routr-marketing/) | SEO, copy | `seo-audit`, `copywriting` |
+| [`routr-ai`](skills/routr-ai/) | chatbot, AI SDK | `ai-sdk` |
+| [`routr-video`](skills/routr-video/) | video, /brag | `brag`, `remotion-best-practices` |
 
 </details>
 
 <details>
-<summary><b>Meta (3)</b></summary>
+<summary><b>Meta + depth fallbacks (8)</b></summary>
 
-| Playbook | Role |
-|----------|------|
-| [`playbook-router`](skills/playbook-router/) | Pick one playbook when unclear |
-| [`library-integration-playbook`](skills/library-integration-playbook/) | Third-party library docs (Context7) |
-| [`agent-design-playbook`](skills/agent-design-playbook/) | Context engineering & harnesses |
-| [`playbook-common`](skills/playbook-common/) | Install commands for missing skills |
+| Skill | Role |
+|-------|------|
+| [`routr-router`](skills/routr-router/) | Pick one router when unclear |
+| [`routr-catalog`](skills/routr-catalog/) | Registry, bundles, install commands |
+| `routr-depth-debug` | Fallback when `systematic-debugging` missing |
+| `routr-depth-frontend` | Fallback when `frontend-design` missing |
+| `routr-depth-plan` | Fallback when `brainstorming` missing |
+| `routr-depth-ship` | Fallback when `caveman-commit` missing |
+| `routr-depth-test` | Fallback when `webapp-testing` missing |
+
+Deprecated `*-playbook` folders redirect to `routr-*`.
 
 </details>
 
@@ -199,81 +178,70 @@ npx skills add heygen-com/hyperframes -g --all -y --copy
 
 ```mermaid
 flowchart LR
-    U[You] --> R[playbook-router]
-    R --> V[video-generation]
-    R --> M[mobile-expo]
-    R --> K[marketing-seo]
-    R --> A[ai-llm-app]
-    R --> D[debugging]
-    R --> F[frontend-feature]
-    V --> S4[brag / remotion / hyperframes]
-    M --> S1[expo skills]
-    K --> S2[marketingskills]
-    A --> S3[vercel ai-sdk]
+    U[You] --> R[routr-router]
+    R --> V[routr-video]
+    R --> M[routr-mobile]
+    R --> K[routr-marketing]
+    R --> A[routr-ai]
+    R --> D[routr-debug]
+    R --> F[routr-frontend]
+    D --> FD[routr-depth-debug]
+    F --> FF[routr-depth-frontend]
+    V --> S4[brag / remotion]
+    D --> S1[systematic-debugging]
+    F --> S2[frontend-design]
 ```
 
-1. Agent matches playbook `description` (slash hover).
-2. Playbook lists child skills to **read** — not copy.
-3. Missing child? → [`skill-catalog.md`](skills/playbook-common/references/skill-catalog.md).
+1. Agent matches router `description` (slash hover).
+2. Router lists children to **read** + `references/` for workflow.
+3. Missing child? → `routr-depth-*` or [skill-registry.md](skills/routr-catalog/references/skill-registry.md).
 
 ---
 
-## Famous skills we route to
+## Child bundles
 
-| Skill | Installs | Playbook |
-|-------|----------|----------|
-| `find-skills` | 2.3M+ | planning |
-| `frontend-design` | 610K+ | frontend-feature |
-| `vercel-react-best-practices` | 515K+ | frontend, review |
-| `agent-browser` | 499K+ | e2e-qa |
-| `building-native-ui` | 57K+ | mobile-expo |
-| `remotion-best-practices` | 401K+ | video-remotion |
-| `brag` | 716★ | video-launch |
-| `seo-audit` | 150K+ | marketing-seo |
+| Bundle | Covers |
+|--------|--------|
+| `routr-bundle-core` | debug, ship, explore, symdex, lean-ctx |
+| `routr-bundle-frontend` | frontend-design, Vercel UI, shadcn |
+| `routr-bundle-full` | Power-user starter pack |
+
+Install commands in [skill-registry.md](skills/routr-catalog/references/skill-registry.md).
 
 ---
 
 ## Example flows
 
-**Expo app + App Store listing**
+**Ship feature + brag video**
 
 ```
-mobile-expo-playbook → building-native-ui
-marketing-seo-playbook → aso + copywriting
-deploy-playbook → expo-deployment / EAS
-```
-
-**Ship a feature + brag video**
-
-```
-fix-and-ship-playbook → commit
-video-launch-playbook → brag
-marketing-seo-playbook → share copy from brag-output
+routr-ship → commit
+routr-video → brag
+routr-marketing → share copy
 ```
 
 **AI chat product**
 
 ```
-planning-playbook → brainstorm + PRD
-ai-llm-app-playbook → ai-sdk + tools
-frontend-feature-playbook → chat UI
-marketing-seo-playbook → ai-seo for visibility
+routr-plan → brainstorm + PRD
+routr-ai → ai-sdk
+routr-frontend → chat UI
+routr-marketing → ai-seo
 ```
 
 ---
 
-## Agents
+## Evals
 
-Cursor · Claude Code · Codex · Kiro · OpenCode · Windsurf · Copilot · Gemini CLI · 70+ via [skills CLI](https://skills.sh)
+Trigger/workflow tests in `evals/` for `routr-router`, `routr-debug`, `routr-frontend`.
 
 ---
 
 ## Contributing
 
-1. Add `skills/your-playbook/SKILL.md` (&lt; 150 lines)
-2. Plain `description` for slash hover
-3. Update `playbook-router` + `skill-catalog.md`
-4. PR
+1. Add `skills/routr-{domain}/SKILL.md` per [authoring.md](docs/authoring.md)
+2. Register in `routr-router` + `skill-registry.md`
+3. PR
 
 ## License
 

@@ -2,51 +2,78 @@
 
 ## Problem
 
-Installing dozens of agent skills creates **discovery noise**: the model picks the wrong skill, loads too many at once, or skips the right workflow order.
+Installing dozens of agent skills creates **discovery noise**: the model picks the wrong skill, loads too many at once, or skips the right workflow order. When child skills are missing, thin routers feel weak.
 
 ## Solution
 
-**Router skills** (playbooks) are thin `SKILL.md` files that:
+**ROUTR v2** uses standardized `routr-*` router skills that:
 
 1. Match a **situation** (debug, ship, frontend, motion, …)
-2. **Order** child skills to read
+2. **Order** child skills to read (canonical names from registry)
 3. **Skip** irrelevant skills explicitly
-4. Point to a **catalog** for installing missing dependencies
+4. **Fallback** via `routr-depth-*` or `references/fallback.md` when children missing
+5. Point to **`routr-catalog`** for install bundles and aliases
 
-Routers do **not** duplicate child skill content — they preserve progressive disclosure.
+Routers route. They do not replace child skills — but they stay useful without them.
 
 ## Layers
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  playbook-router          Meta: pick a situation            │
+│  routr-router             Meta: pick a situation            │
 ├─────────────────────────────────────────────────────────────┤
-│  Situational playbooks    debug | fix | explore | …         │
+│  routr-* routers          debug | ship | frontend | …       │
+│  routr-depth-*            Fallback when child missing       │
 ├─────────────────────────────────────────────────────────────┤
-│  Child skills             symdex, lean-ctx, frontend-design │
-│  (installed separately)   framer-motion, context-fundamentals│
+│  routr-catalog            Registry, bundles, resolution     │
+├─────────────────────────────────────────────────────────────┤
+│  Child skills             frontend-design, systematic-debug │
+│  (installed separately)   ai-sdk, symdex, lean-ctx, …      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## Two-layer model
+
+| Layer | Role | Example |
+|-------|------|---------|
+| ROUTR routers | Situation → ordered children + iron laws | `routr-debug` |
+| Child skills | Domain depth | `systematic-debugging`, `frontend-design` |
+| Depth fallbacks | Minimum expertise if child not installed | `routr-depth-debug` |
+
+**ROUTR without child bundles feels weak** — install `routr-bundle-core` / `routr-bundle-frontend` from [skill-registry.md](../skills/routr-catalog/references/skill-registry.md).
+
 ## Frontend stack
 
-Two playbooks split UI work:
+| Router | Scope |
+|--------|--------|
+| `routr-frontend` | Layout, typography, components, design system |
+| `routr-motion` | Framer Motion, scroll, micro-interactions |
 
-| Playbook | Scope |
-|----------|--------|
-| `frontend-feature-playbook` | Layout, typography, components, design system |
-| `frontend-motion-playbook` | Framer Motion, scroll, micro-interactions, review |
+## Video stack (v2)
 
-Child skills include Anthropic `frontend-design`, `ui-ux-pro-max`, `shadcn`, Tailwind design system, and motion skills (`framer-motion-animator`, `review-animations`, Lottie `motion-design`).
+Single entry: `routr-video` with `references/launch.md` and `references/remotion.md`. Deprecated `video-*-playbook` folders redirect here.
+
+## Naming
+
+All ROUTR-owned skills use `routr-` prefix. See [naming.md](naming.md). Deprecated `*-playbook` names ship redirect stubs for two release cycles.
+
+## Progressive disclosure
+
+Top routers include `references/` (workflow, fallback, gotchas, examples, boundaries). Keep `SKILL.md` ≤150 lines.
+
+## Quality loop
+
+Eval prompts in `evals/` for `routr-router`, `routr-debug`, `routr-frontend`. Run before releases.
 
 ## Compatibility
 
 Works anywhere the [Agent Skills](https://skills.sh) format is supported: Cursor, Claude Code, Codex, Kiro, OpenCode, Windsurf, and 70+ agents via `npx skills add`.
 
-## Authoring new playbooks
+## Authoring new routers
 
-1. Copy an existing `skills/*-playbook/SKILL.md`
-2. Write a description with **WHAT** + **WHEN** (third person)
-3. List child skills in order with skip rules
-4. Add entries to `skills/playbook-common/references/skill-catalog.md`
-5. Register in `playbook-router` decision tree
+See [authoring.md](authoring.md):
+
+1. Name: `routr-{domain}`
+2. Register in `routr-router`
+3. Add row to `skill-registry.md`
+4. Add `references/` if overlaps siblings

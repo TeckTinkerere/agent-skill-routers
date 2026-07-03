@@ -1,55 +1,70 @@
-# ROUTR bundle installer — pick groups with checkboxes, then install selected playbooks.
+# ROUTR bundle installer — pick groups with checkboxes, then install selected routers.
 # Usage: .\scripts\install-routr.ps1
-# Or from repo root after clone: powershell -ExecutionPolicy Bypass -File scripts/install-routr.ps1
+# v2: routr-* names + deprecated *-playbook aliases for migration
 
 $ErrorActionPreference = "Stop"
 
 $bundles = @(
     [PSCustomObject]@{
         Bundle = "Meta"
-        Description = "Router + shared catalog"
-        Skills = @("playbook-router", "playbook-common")
+        Description = "Router + catalog + depth fallbacks"
+        Skills = @("routr-router", "routr-catalog", "routr-depth-debug", "routr-depth-frontend", "routr-depth-plan", "routr-depth-ship", "routr-depth-test")
     }
     [PSCustomObject]@{
         Bundle = "Core engineering"
         Description = "Debug, ship, plan, test, review, refactor, deploy, DB, QA, security, explore"
         Skills = @(
-            "debugging-playbook", "fix-and-ship-playbook", "planning-playbook",
-            "testing-playbook", "code-review-playbook", "refactor-playbook",
-            "deploy-playbook", "database-playbook", "e2e-qa-playbook",
-            "security-review-playbook", "explore-codebase-playbook",
-            "library-integration-playbook", "agent-design-playbook"
+            "routr-debug", "routr-ship", "routr-plan",
+            "routr-test", "routr-review", "routr-refactor",
+            "routr-deploy", "routr-database", "routr-qa",
+            "routr-security", "routr-explore",
+            "routr-integrate", "routr-agents"
         )
     }
     [PSCustomObject]@{
         Bundle = "Frontend"
         Description = "UI build + motion"
-        Skills = @("frontend-feature-playbook", "frontend-motion-playbook")
+        Skills = @("routr-frontend", "routr-motion")
     }
     [PSCustomObject]@{
         Bundle = "Video"
-        Description = "brag, HyperFrames, Remotion routing"
-        Skills = @("video-generation-playbook", "video-launch-playbook", "video-remotion-playbook")
+        Description = "Launch, HyperFrames, Remotion (single routr-video)"
+        Skills = @("routr-video")
     }
     [PSCustomObject]@{
         Bundle = "Mobile"
         Description = "Expo / React Native"
-        Skills = @("mobile-expo-playbook")
+        Skills = @("routr-mobile")
     }
     [PSCustomObject]@{
         Bundle = "Marketing & SEO"
         Description = "Copy, SEO, growth"
-        Skills = @("marketing-seo-playbook")
+        Skills = @("routr-marketing")
     }
     [PSCustomObject]@{
         Bundle = "AI / LLM apps"
         Description = "Vercel AI SDK, chat, RAG"
-        Skills = @("ai-llm-app-playbook")
+        Skills = @("routr-ai")
+    }
+    [PSCustomObject]@{
+        Bundle = "Deprecated aliases"
+        Description = "Old *-playbook names (redirect stubs) — optional for migration"
+        Skills = @(
+            "playbook-router", "playbook-common",
+            "debugging-playbook", "fix-and-ship-playbook", "planning-playbook",
+            "testing-playbook", "code-review-playbook", "refactor-playbook",
+            "deploy-playbook", "database-playbook", "e2e-qa-playbook",
+            "security-review-playbook", "explore-codebase-playbook",
+            "library-integration-playbook", "agent-design-playbook",
+            "frontend-feature-playbook", "frontend-motion-playbook",
+            "mobile-expo-playbook", "marketing-seo-playbook", "ai-llm-app-playbook",
+            "video-generation-playbook", "video-launch-playbook", "video-remotion-playbook"
+        )
     }
 )
 
 Write-Host ""
-Write-Host "ROUTR — select bundles to install (checkbox grid)" -ForegroundColor Cyan
+Write-Host "ROUTR v2 — select bundles to install (checkbox grid)" -ForegroundColor Cyan
 Write-Host ""
 
 $selected = $bundles | Out-GridView -Title "ROUTR install bundles" -PassThru
@@ -63,11 +78,12 @@ $skillNames = $selected | ForEach-Object { $_.Skills } | Select-Object -Unique
 $skillArgs = ($skillNames | ForEach-Object { "--skill"; $_ })
 
 Write-Host ""
-Write-Host "Installing $($skillNames.Count) playbook(s):" -ForegroundColor Green
+Write-Host "Installing $($skillNames.Count) skill(s):" -ForegroundColor Green
 $skillNames | ForEach-Object { Write-Host "  - $_" }
 
 $npxArgs = @("skills", "add", "TeckTinkerere/ROUTR", "-g", "--copy", "-y") + $skillArgs
 & npx @npxArgs
 
 Write-Host ""
-Write-Host "Done. Restart Cursor / your agent, then type / to search playbooks." -ForegroundColor Cyan
+Write-Host "Install child bundles from routr-catalog/references/skill-registry.md for full depth." -ForegroundColor Yellow
+Write-Host "Done. Restart Cursor / your agent, then type / to search routr-* skills." -ForegroundColor Cyan

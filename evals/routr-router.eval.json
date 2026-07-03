@@ -1,0 +1,46 @@
+{
+  "skill_name": "routr-router",
+  "description": "Router selection accuracy",
+  "prompts": [
+    {
+      "prompt": "I'm not sure where to start — I need to fix a bug and then commit it",
+      "expected_router": "routr-debug",
+      "expected_chain": ["routr-debug", "routr-ship"],
+      "must_not_load": ["routr-frontend", "routr-plan"]
+    },
+    {
+      "prompt": "Build a landing page for our API product",
+      "expected_router": "routr-frontend",
+      "must_not_load": ["routr-motion", "routr-video"]
+    },
+    {
+      "prompt": "Make the button animation smoother",
+      "expected_router": "routr-motion",
+      "must_not_load": ["routr-frontend"]
+    },
+    {
+      "prompt": "/brag about what we built",
+      "expected_router": "routr-video",
+      "expected_child": "brag"
+    },
+    {
+      "prompt": "How does authentication work in this repo?",
+      "expected_router": "routr-explore",
+      "must_not_load": ["routr-debug", "routr-ship"]
+    },
+    {
+      "prompt": "Add streaming chat with the AI SDK",
+      "expected_router": "routr-ai",
+      "expected_chain": ["routr-ai", "routr-frontend"]
+    },
+    {
+      "prompt": "Write a PRD before we build the dashboard",
+      "expected_router": "routr-plan"
+    },
+    {
+      "prompt": "Deploy to Vercel and smoke test the preview",
+      "expected_router": "routr-deploy",
+      "expected_chain": ["routr-deploy", "routr-qa"]
+    }
+  ]
+}

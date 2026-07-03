@@ -1,209 +1,131 @@
-# Install — ROUTR
+# Install — ROUTR v2
 
-The **slash-command hover text** in Cursor, Claude Code, Codex, and other agents comes from each skill’s `description` field in `SKILL.md`. This repo keeps those descriptions short and plain.
+> **Breaking rename (v2):** `*-playbook` → `routr-*`. Old names ship as redirect stubs. See [docs/naming.md](docs/naming.md).
+
+The **slash-command hover text** comes from each skill’s `description` in `SKILL.md`.
 
 ## Requirements
 
-- **Node.js 18+** ([nodejs.org](https://nodejs.org))
-- **Git** (optional; `npx skills` clones from GitHub)
-- Internet access for first install
-
-Check Node:
-
-```powershell
-node -v
-```
-
-```bash
-node -v
-```
+- **Node.js 18+** · **Git** (optional) · Internet for first install
 
 ---
 
-## Install playbooks (all platforms)
+## Install routers
 
-### Recommended — pick playbooks with checkboxes
-
-**Do not** pass `-y` or `--all` if you want to choose what to install. The [skills CLI](https://skills.sh) shows an **interactive multi-select** for playbooks (and agents).
-
-### Windows — PowerShell
+### Interactive (recommended)
 
 ```powershell
 npx skills add TeckTinkerere/ROUTR -g --copy
 ```
-
-### macOS / Linux — Bash or Zsh
 
 ```bash
 npx skills add TeckTinkerere/ROUTR -g --copy
 ```
 
-Use **Space** to toggle playbooks, **Enter** to confirm. On Windows, use **copy** mode (not symlinks) to avoid permission issues.
+Use **Space** to toggle, **Enter** to confirm. On Windows use `--copy`.
 
-Optional: ROUTR bundle picker (groups playbooks — then installs your selection):
+### Bundle picker
 
 ```powershell
-# Windows — grid checkboxes for Core / Video / Mobile / etc.
 .\scripts\install-routr.ps1
 ```
 
 ```bash
-# macOS / Linux — numbered bundle menu, then installs
 ./scripts/install-routr.sh
 ```
 
-### Install everything (no prompts)
-
-For scripts, CI, or when you want all 22 playbooks at once:
+### Install all routr-* skills (no prompts)
 
 ```powershell
-npx skills add TeckTinkerere/ROUTR -g --all -y --copy
-```
-
-```bash
 npx skills add TeckTinkerere/ROUTR -g --all -y --copy
 ```
 
 | Flag | Meaning |
 |------|---------|
-| `-g` / `--global` | Install for your user (all projects) |
-| *(none)* | **Interactive** — checkbox picker for skills + agents |
-| `--all` | Skip picker — install every playbook |
-| `-y` | Skip confirmation prompts (pairs with `--all` for one-shot) |
-| `--copy` | Copy files (recommended on Windows; avoids symlink issues) |
-| `--skill <name>` | Install specific playbooks only (no picker) |
+| `-g` | Global — all projects |
+| `--all` | Every skill (routers + deprecated aliases) |
+| `-y` | Skip confirmations |
+| `--copy` | Copy files (Windows-safe) |
+| `--skill <name>` | Specific skills only |
 
-**Restart your agent app** after install so the slash menu refreshes.
+**Restart your agent** after install.
 
-### Preset bundles (one command, no picker)
+### Preset router bundles
 
 | Bundle | Command |
 |--------|---------|
-| **Core** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill playbook-router --skill debugging-playbook --skill fix-and-ship-playbook --skill planning-playbook --skill explore-codebase-playbook` |
-| **Video** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill video-generation-playbook --skill video-launch-playbook --skill video-remotion-playbook` |
-| **Frontend** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill frontend-feature-playbook --skill frontend-motion-playbook` |
-| **Stacks** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill mobile-expo-playbook --skill marketing-seo-playbook --skill ai-llm-app-playbook` |
+| **Meta** | `npx skills add TeckTinkerere/ROUTR -g --copy -y --skill routr-router --skill routr-catalog` |
+| **Core** | `… --skill routr-debug --skill routr-ship --skill routr-plan --skill routr-explore` |
+| **Frontend** | `… --skill routr-frontend --skill routr-motion` |
+| **Video** | `… --skill routr-video` |
+| **Stacks** | `… --skill routr-mobile --skill routr-marketing --skill routr-ai` |
 
 ---
 
-## Install famous child skills (optional)
+## Install child skill bundles (required for depth)
 
-Playbooks **route** to other skills; they do not bundle them. Install the starter pack once:
+Routers are indexes — install children for Anthropic-grade output:
 
-### Windows (PowerShell)
+| Bundle | See |
+|--------|-----|
+| `routr-bundle-core` | Daily coding — debug, ship, symdex, lean-ctx |
+| `routr-bundle-frontend` | `frontend-design`, Vercel UI, shadcn |
+| `routr-bundle-full` | Power-user starter pack |
 
-```powershell
-npx skills add vercel-labs/agent-browser anthropics/skills@webapp-testing obra/superpowers -g --all -y --copy
-npx skills add vercel-labs/agent-skills supabase/agent-skills mattpocock/skills -g --all -y --copy
-npx skills add husnainpk/SymDex yvgude/lean-ctx upstash/context7 JuliusBrussee/caveman -g --all -y --copy
-npx skills add anthropics/skills@frontend-design shadcn/ui@shadcn -g -y --copy
-```
+Commands in [`skills/routr-catalog/references/skill-registry.md`](skills/routr-catalog/references/skill-registry.md).
 
-### macOS / Linux
+Quick core install:
 
 ```bash
-npx skills add vercel-labs/agent-browser anthropics/skills@webapp-testing obra/superpowers -g --all -y --copy
-npx skills add vercel-labs/agent-skills supabase/agent-skills mattpocock/skills -g --all -y --copy
-npx skills add husnainpk/SymDex yvgude/lean-ctx upstash/context7 JuliusBrussee/caveman -g --all -y --copy
-npx skills add anthropics/skills@frontend-design shadcn/ui@shadcn -g -y --copy
+npx skills add obra/superpowers -g --skill systematic-debugging --skill brainstorming -y --copy
+npx skills add anthropics/skills@frontend-design -g -y --copy
+npx skills add husnainpk/SymDex yvgude/lean-ctx -g -y --copy
 ```
-
-Full list with install counts: [`skills/playbook-common/references/skill-catalog.md`](skills/playbook-common/references/skill-catalog.md)
-
-### Video stack (optional)
-
-```powershell
-npx skills add latent-spaces/brag@brag remotion-dev/skills@remotion-best-practices -g -y --copy
-npx skills add heygen-com/hyperframes -g --all -y --copy
-```
-
-Leaderboard: [`video-skills-leaderboard.md`](skills/playbook-common/references/video-skills-leaderboard.md)
 
 ---
 
-## Per-agent notes
+## Slash menu
 
-Skills install to agent-specific folders via the [skills CLI](https://skills.sh). Global install (`-g`) targets **all supported agents** on your machine.
+Search `routr-` in `/` picker:
 
-| Agent | Skill location (typical) | After install |
-|-------|--------------------------|---------------|
-| **Cursor** | `%USERPROFILE%\.agents\skills\` (Windows) or `~/.agents/skills/` | Restart Cursor. Type `/` and search playbook name. |
-| **Claude Code** | `~/.claude/skills/` | Restart Claude Code. Use skill picker or `/` if enabled. |
-| **Codex** | `~/.codex/skills/` or `~/.agents/skills/` | Restart Codex CLI / IDE integration. |
-| **Kiro** | `~/.kiro/skills/` | Restart Kiro. |
-| **OpenCode** | `~/.config/opencode/` (skills mirrored) | Restart OpenCode. |
-| **Windsurf** | `~/.codeium/windsurf/skills/` | Restart Windsurf. |
-| **Copilot** | VS Code user skills paths | Reload VS Code window. |
+| Router | Hover |
+|--------|-------|
+| `routr-router` | Pick workflow when unclear |
+| `routr-debug` | Find and fix bugs step by step |
+| `routr-ship` | Fix, verify, commit or PR |
+| `routr-frontend` | Build or redesign UI |
+| `routr-plan` | Plan, PRD, grill ideas |
+| `routr-video` | Video — launch, Remotion, HyperFrames |
+| `routr-ai` | AI SDK chat, agents, RAG |
+| `routr-mobile` | Expo / React Native |
+| `routr-marketing` | SEO, copy, growth |
+| … | Full list in [README](README.md) |
 
-List what is installed for one agent:
+Deprecated `debugging-playbook` etc. redirect to `routr-*`.
 
-```powershell
-npx skills ls -g -a cursor
-```
+---
+
+## Verify
 
 ```bash
-npx skills ls -g -a claude-code
+npx skills ls -g | grep routr
 ```
+
+In Cursor: `/` → search `routr-debug`.
 
 ---
 
-## Verify install
-
-```powershell
-# Windows — should list debugging-playbook, frontend-feature-playbook, etc.
-npx skills ls -g | Select-String playbook
-```
+## Update / uninstall
 
 ```bash
-# macOS / Linux
-npx skills ls -g | grep playbook
-```
-
-In **Cursor**: open chat → type `/` → search `debugging-playbook`. Hover should show the one-line description from `SKILL.md`.
-
----
-
-## Update playbooks
-
-```powershell
 npx skills update TeckTinkerere/ROUTR -g -y
 ```
 
-Or reinstall:
+Remove all v2 routers:
 
-```powershell
-npx skills add TeckTinkerere/ROUTR -g --all -y --copy
+```bash
+npx skills remove routr-router routr-catalog routr-debug routr-ship routr-plan routr-test routr-review routr-refactor routr-deploy routr-database routr-qa routr-security routr-explore routr-integrate routr-agents routr-frontend routr-motion routr-mobile routr-marketing routr-ai routr-video routr-depth-debug routr-depth-frontend routr-depth-plan routr-depth-ship routr-depth-test -g -y
 ```
-
----
-
-## Uninstall
-
-```powershell
-npx skills remove debugging-playbook frontend-feature-playbook -g -y
-```
-
-Remove all playbooks from this repo:
-
-```powershell
-npx skills remove playbook-router debugging-playbook fix-and-ship-playbook explore-codebase-playbook library-integration-playbook agent-design-playbook frontend-feature-playbook frontend-motion-playbook planning-playbook testing-playbook code-review-playbook refactor-playbook deploy-playbook database-playbook e2e-qa-playbook security-review-playbook mobile-expo-playbook marketing-seo-playbook ai-llm-app-playbook video-generation-playbook video-launch-playbook video-remotion-playbook playbook-common -g -y
-```
-
----
-
-## Slash menu: what you configure
-
-Each playbook’s hover text is the YAML `description` at the top of `skills/<name>/SKILL.md`:
-
-```yaml
----
-name: debugging-playbook
-description: >
-  Find and fix bugs step by step. Use when: errors, crashes, test failures, "debug this".
----
-```
-
-Edit `description` → reinstall or push to GitHub → `npx skills update` to refresh what users see on hover.
 
 ---
 
@@ -211,23 +133,21 @@ Edit `description` → reinstall or push to GitHub → `npx skills update` to re
 
 | Problem | Fix |
 |---------|-----|
-| Skill not in `/` menu | Restart agent; run install with `-g --copy` |
-| No checkbox picker appeared | Remove `-y` and `--all` — those skip the interactive UI |
-| Installed 20 not 22 playbooks | Run `npx skills update TeckTinkerere/ROUTR -g` or reinstall from latest `master` |
-| Old hover text | `npx skills update <skill-name> -g` |
-| `npx` not found | Install Node.js 18+; reopen terminal |
-| Windows symlink errors | Always use `--copy` |
-| Child skill missing at runtime | Install from [skill-catalog.md](skills/playbook-common/references/skill-catalog.md) |
+| Weak output | Install child bundles from skill-registry.md |
+| Old playbook names | Use `routr-*` or install deprecated alias bundle |
+| Skill not in menu | Restart agent; `-g --copy` |
+| Child missing | `routr-catalog/references/skill-registry.md` |
 
 ---
 
-## Project-only install (team repo)
+## Per-agent paths
 
-Omit `-g` inside a project that has `skills` configured:
+| Agent | Typical path |
+|-------|--------------|
+| Cursor | `~/.agents/skills/` |
+| Claude Code | `~/.claude/skills/` |
+| Codex | `~/.codex/skills/` |
 
 ```bash
-cd your-project
-npx skills add TeckTinkerere/ROUTR --all -y --copy
+npx skills ls -g -a cursor
 ```
-
-Commits `skills-lock.json` if your team uses lockfile workflow.
